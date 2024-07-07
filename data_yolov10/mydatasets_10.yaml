@@ -1,0 +1,11 @@
+names:
+- cross
+- hex
+- slotted
+- torx
+
+nc: 4
+
+train: /content/drive/MyDrive/DATN/data_yolov10/train/images
+val: /content/drive/MyDrive/DATN/data_yolov10/test/images
+#test: /content/drive/MyDrive/DATN/data_yolov10/test/images

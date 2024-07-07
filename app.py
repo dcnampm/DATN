@@ -3,9 +3,11 @@ import cv2
 import tempfile
 from ultralytics import YOLOv10
 
+model = YOLOv10("weights/yolov10_best.pt")
 
 def yolov10_inference(image, video, model_id, image_size, conf_threshold):
-    model = YOLOv10.from_pretrained(f'jameslahm/{model_id}')
+    # model = YOLOv10.from_pretrained(f'jameslahm/{model_id}')
+    # model = YOLOv10("weights/last.pt")
     if image:
         results = model.predict(source=image, imgsz=image_size, conf=conf_threshold)
         annotated_image = results[0].plot()
@@ -65,7 +67,7 @@ def app():
                         "yolov10l",
                         "yolov10x",
                     ],
-                    value="yolov10m",
+                    value="yolov10s",
                 )
                 image_size = gr.Slider(
                     label="Image Size",
@@ -114,31 +116,6 @@ def app():
             outputs=[output_image, output_video],
         )
 
-        gr.Examples(
-            examples=[
-                [
-                    "ultralytics/assets/bus.jpg",
-                    "yolov10s",
-                    640,
-                    0.25,
-                ],
-                [
-                    "ultralytics/assets/zidane.jpg",
-                    "yolov10s",
-                    640,
-                    0.25,
-                ],
-            ],
-            fn=yolov10_inference_for_examples,
-            inputs=[
-                image,
-                model_id,
-                image_size,
-                conf_threshold,
-            ],
-            outputs=[output_image],
-            cache_examples='lazy',
-        )
 
 gradio_app = gr.Blocks()
 with gradio_app:
